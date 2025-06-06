@@ -121,6 +121,7 @@ var (
 	HW_KPS_KEYPAIR_NAME_2   = os.Getenv("HW_KPS_KEYPAIR_NAME_2")
 	HW_KPS_KEYPAIR_KEY_1    = os.Getenv("HW_KPS_KEYPAIR_KEY_1")
 	HW_KPS_KEYPAIR_SSH_PORT = os.Getenv("HW_KPS_KEYPAIR_SSH_PORT")
+	HW_KPS_FAILED_TASKID    = os.Getenv("HW_KPS_FAILED_TASKID")
 
 	HW_DEST_REGION          = os.Getenv("HW_DEST_REGION")
 	HW_DEST_PROJECT_ID      = os.Getenv("HW_DEST_PROJECT_ID")
@@ -1712,6 +1713,13 @@ func TestAccPreCheckKmsKeyPrivateKey(t *testing.T) {
 func TestAccPreCheckKpsSSHPort(t *testing.T) {
 	if HW_KPS_KEYPAIR_SSH_PORT == "" {
 		t.Skip("HW_KPS_KEYPAIR_SSH_PORT must be set for acceptance tests.")
+	}
+}
+
+// lintignore:AT003
+func TestAccPreCheckKpsTaskId(t *testing.T) {
+	if HW_KPS_FAILED_TASKID == "" {
+		t.Skip("HW_KPS_FAILED_TASKID must be set for acceptance tests.")
 	}
 }
 
@@ -3397,4 +3405,8 @@ func TestAccPreCheckServiceStageZipStorageURLs(t *testing.T, n int) {
 	if len(strings.Split(HW_SERVICESTAGE_ZIP_STORAGE_URLS, ",")) < n {
 		t.Skipf("at least %d URLs for HW_SERVICESTAGE_ZIP_STORAGE_URLS must be set, separated by a comma (,)", n)
 	}
+}
+
+func TestAccPreCheckKpsFailedTask(t *testing.T) {
+
 }
